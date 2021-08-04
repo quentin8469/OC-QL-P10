@@ -24,4 +24,3 @@ class IssuesSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Issues
-
