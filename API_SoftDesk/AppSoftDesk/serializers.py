@@ -6,35 +6,32 @@ class CommentsSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Comments
-        fields = ['id', 'description', 'author',
-                  'created_time']
+        fields = "__all__"
 
 
 class ContributorsSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Contributors
-        fields = ['id', 'user', 'project', 'permission', 'role']
+        fields = "__all__"
 
 
 class ProjectsSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Projects
-        fields = ['id', 'title', 'description', 'type']
+        fields = "__all__"
 
 
 class IssuesSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Issues
-        fields = ['id', 'title', 'desc', 'tag', 'priority',
-                  'status', 'author', 'assignee', 'created_time']
+        fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
         model = Users
-        fields = ['id', 'username', 'first_name',
-                  'last_name', 'password', 'email']
+        fields = ['id', 'username', 'first_name', 'last_name', 'password', 'email']
