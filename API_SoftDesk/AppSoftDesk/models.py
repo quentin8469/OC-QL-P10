@@ -16,11 +16,10 @@ class Projects(models.Model):
         ('Android', 'Android')
     ]
 
-    title = models.CharField(max_length=150, blank=False, null=False)
-    description = models.CharField(max_length=150, blank=False, null=False)
+    title = models.CharField(max_length=150)
+    description = models.CharField(max_length=150)
     type = models.CharField(max_length=7, choices=TYPE_CHOICES, default='Web')
-    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False, null=False)
-    created_time = models.DateTimeField(auto_now_add=True)
+    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
 
 
 class Contributors(models.Model):
@@ -38,9 +37,9 @@ class Contributors(models.Model):
         ("Contributor", "Contributeur"),
     ]
 
-    user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    projet_id = models.ForeignKey(to=Projects, on_delete=models.CASCADE)
-    permission = models.CharField(max_length=50, choices=perm_list, blank=False, null=False, default='restricted')
+    user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    projet_id = models.ForeignKey(to=Projects, on_delete=models.CASCADE, blank=True, null=True)
+    permission = models.CharField(max_length=50, choices=perm_list, default='restricted')
     role = models.CharField(max_length=150, choices=role_list, default="")
 
 
@@ -60,16 +59,16 @@ class Issues(models.Model):
                       ('Terminée', 'Terminée')
                       ]
 
-    tile = models.CharField(max_length=150, blank=False, null=False)
-    description = models.CharField(max_length=150, blank=False, null=False)
+    tile = models.CharField(max_length=150)
+    description = models.CharField(max_length=150)
     tag = models.CharField(max_length=150, choices=TAG_CHOICES, default='')
     priority = models.CharField(max_length=150, choices=PRIORITY_CHOICES, default='')
-    project_id = models.ForeignKey(to=Projects, on_delete=models.CASCADE)
+    project_id = models.ForeignKey(to=Projects, on_delete=models.CASCADE, blank=True, null=True)
     status = models.CharField(max_length=150, choices=STATUS_CHOICES, default='')
     author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_id',
-                                       null=False)
+                                       blank=True, null=True)
     assignee_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
-                                         related_name='assignee_id')
+                                         related_name='assignee_id', blank=True, null=True)
     created_time = models.DateTimeField(auto_now_add=True)
 
 
@@ -79,6 +78,6 @@ class Comments(models.Model):
     """
 
     description = models.CharField(max_length=150)
-    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False, null=False)
-    issue_id = models.ForeignKey(to=Issues, on_delete=models.CASCADE, blank=False, null=False)
+    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    issue_id = models.ForeignKey(to=Issues, on_delete=models.CASCADE, blank=True, null=True)
     created_time = models.DateTimeField(auto_now_add=True)

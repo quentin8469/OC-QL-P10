@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from rest_framework import viewsets
-
-# Create your views here.
-from .serializers import ProjectsSerializer, CommentsSerializer, ContributorsSerializer, IssuesSerializer
+from django.contrib.auth.models import User
+from .serializers import ProjectsSerializer, CommentsSerializer, ContributorsSerializer, IssuesSerializer, \
+    UserSerializer
 from .models import Projects, Comments, Contributors, Issues
+# Create your views here.
 
 
 class ProjectsViewSet(viewsets.ModelViewSet):
@@ -29,3 +29,8 @@ class IssuesViewSet(viewsets.ModelViewSet):
     queryset = Issues.objects.all()
     serializer_class = IssuesSerializer
 
+
+class UserViewSet(viewsets.ModelViewSet):
+    """"""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
