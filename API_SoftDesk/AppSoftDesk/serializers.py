@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Comments, Contributors, Projects, Issues, Users
+from django.contrib.auth.models import User
+from .models import Comments, Contributors, Projects, Issues
 
 
 class CommentsSerializer(serializers.ModelSerializer):
@@ -33,5 +34,5 @@ class IssuesSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     """"""
     class Meta:
-        model = Users
+        model = User
         fields = ['id', 'username', 'first_name', 'last_name', 'password', 'email']

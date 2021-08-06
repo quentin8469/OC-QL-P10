@@ -1,16 +1,8 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 
 
 # Create your models here.
-
-
-class Users(AbstractUser):
-    """
-    Objet Users
-    """
-    pass
 
 
 class Projects(models.Model):
@@ -56,9 +48,17 @@ class Issues(models.Model):
     """
     Objet Issues
     """
-    TAG_CHOICES = [('Bug', 'Bug'), ('Amelioration', 'Amelioration'), ('Tâche', 'Tâche')]
-    PRIORITY_CHOICES = [('Low', 'Faible'), ('Middle', 'Moyenne'), ('High', 'Elevée')]
-    STATUS_CHOICES = [('En cours', 'En cours'), ('Terminée', 'Terminée')]
+    TAG_CHOICES = [('Bug', 'Bug'),
+                   ('Amelioration', 'Amelioration'),
+                   ('Tâche', 'Tâche')
+                   ]
+    PRIORITY_CHOICES = [('Low', 'Faible'),
+                        ('Middle', 'Moyenne'),
+                        ('High', 'Elevée')
+                        ]
+    STATUS_CHOICES = [('En cours', 'En cours'),
+                      ('Terminée', 'Terminée')
+                      ]
 
     tile = models.CharField(max_length=150, blank=False, null=False)
     description = models.CharField(max_length=150, blank=False, null=False)
@@ -66,8 +66,10 @@ class Issues(models.Model):
     priority = models.CharField(max_length=150, choices=PRIORITY_CHOICES, default='')
     project_id = models.ForeignKey(to=Projects, on_delete=models.CASCADE)
     status = models.CharField(max_length=150, choices=STATUS_CHOICES, default='')
-    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=False, null=False)
-    assignee_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author_id',
+                                       null=False)
+    assignee_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                                         related_name='assignee_id')
     created_time = models.DateTimeField(auto_now_add=True)
 
 
