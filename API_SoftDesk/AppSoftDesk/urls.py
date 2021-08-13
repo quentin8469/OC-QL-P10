@@ -24,12 +24,12 @@ router.register(r"", ProjectsViewSet, basename="projects")
 router.register(r"^(?P<id>[^/.]+)/users", UserViewSet, basename="users")
 router.register(r"^(?P<id>[^/.]+)/issues", IssuesViewSet, basename="issues")
 router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/comments", CommentsViewSet, basename="comments")
-#router.register(r'contributors', ContributorsViewSet, basename="contibutors")
+router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/contributors", ContributorsViewSet, basename="contibutors")
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('projects/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 ]
