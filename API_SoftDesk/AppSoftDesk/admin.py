@@ -13,7 +13,7 @@ class ProjectsAdmin(admin.ModelAdmin):
 @admin.register(Issues)
 class IssuesAdmin(admin.ModelAdmin):
     """"""
-    list_display = ('tile', 'description', 'tag', 'priority', 'project_id', 'status', 'author_user_id',
+    list_display = ('title', 'description', 'tag', 'priority', 'project_id', 'status', 'author_user_id',
                     'assignee_user_id', 'created_time',)
 
 

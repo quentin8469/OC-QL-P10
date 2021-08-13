@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from django.contrib.auth.models import User
-
+from rest_framework.permissions import IsAuthenticated
 
 from .serializers import (ProjectsSerializer,
                           CommentsSerializer,
@@ -15,6 +15,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     """"""
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
+    #permission_classes = (IsAuthenticated,)
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
