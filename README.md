@@ -7,13 +7,13 @@
 ## 1.Presentation
 ***
 Créer une API sécurisée RESTful en utilisant Django REST
-1) Description de l'application
+1) Description de l'application:<br>
 Ce projet consiste à développer une API sécurisée, pour le compte de la société SoftDesk, permettant d’accéder à une application de suivi de développement logiciel.
-2) Frameworks utilisés
+2) Frameworks utilisés:
    * Django : pour le développement de sites web en Python
    * Django REST Framework : pour concevoir des API REST avec Django
-3)Packages supplémentaires
-  * Django REST Framework simple JWT  : package pour gérer l'authentification via des JSON Web Token (JWT)
+3) Packages supplémentaires:
+   * Django REST Framework simple JWT  : package pour gérer l'authentification via des JSON Web Token (JWT)
 
 
 ## 2-Installation  :
