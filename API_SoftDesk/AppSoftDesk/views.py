@@ -17,13 +17,14 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     """"""
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
-    #permission_classes =
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
     """"""
     serializer_class = CommentsSerializer
-    #permission_classes =
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self):
         """"""
         id_issue = get_object_or_404(Issues, pk=self.kwargs['id'])
@@ -33,7 +34,8 @@ class CommentsViewSet(viewsets.ModelViewSet):
 class ContributorsViewSet(viewsets.ModelViewSet):
     """"""
     serializer_class = ContributorsSerializer
-    #permission_classes =
+    permission_classes = [permissions.IsAuthenticated]
+
     def get_queryset(self):
         id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
         return Contributors.objects.filter(projet_id=id_project)
@@ -43,7 +45,7 @@ class IssuesViewSet(viewsets.ModelViewSet):
     """"""
 
     serializer_class = IssuesSerializer
-    #permission_classes =
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         """"""
