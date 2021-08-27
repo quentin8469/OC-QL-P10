@@ -6,18 +6,9 @@ from .views import (ProjectsViewSet,
                     UserViewSet,
                     CommentsViewSet,
                     ContributorsViewSet,
-                    IssuesViewSet,
+                    IssuesViewSet, RegisterUsers,
                     )
 
-
-"""
-router = routers.DefaultRouter()
-router.register(r'signup', UserViewSet)
-router.register(r'projects', ProjectsViewSet)
-router.register(r'projects/(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/comments', CommentsViewSet)
-router.register(r'contributors', ContributorsViewSet)
-router.register(r'projects/(?P<id>[^/.]+)/issues', IssuesViewSet)
-"""
 
 router = routers.DefaultRouter()
 router.register(r"", ProjectsViewSet, basename="projects")
@@ -31,6 +22,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('signup/', UserViewSet, name='signup')
+    path('signup/', RegisterUsers.as_view(), name='signup')
 
 ]
