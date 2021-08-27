@@ -8,7 +8,8 @@ from .serializers import (ProjectsSerializer,
                           CommentsSerializer,
                           ContributorsSerializer,
                           IssuesSerializer,
-                          UserSerializer, RegisterSerializer)
+                          UserSerializer,
+                          RegisterSerializer)
 from .models import Projects, Comments, Contributors, Issues
 # Create your views here.
 
@@ -34,11 +35,17 @@ class CommentsViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         """"""
-        id_issue = get_object_or_404(Issues, pk=self.kwargs['id'])
+        query_issue_id = self.kwargs.get('issue_id')
+        id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
+        id_issues = Issues.objects.filter(project_id=id_project)
+        id_issue = id_issues.get(pk=query_issue_id)
         return Comments.objects.filter(issue_id=id_issue)
 
     def perform_create(self, serializer):
-        id_issue = get_object_or_404(Issues, pk=self.kwargs['id'])
+        query_issue_id = self.kwargs.get('issue_id')
+        id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
+        id_issues = Issues.objects.filter(project_id=id_project)
+        id_issue = id_issues.get(pk=query_issue_id)
         serializer.save(issue_id=id_issue)
         serializer.save(author_user_id=self.request.user)
 
@@ -73,7 +80,7 @@ class IssuesViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     """"""
     serializer_class = UserSerializer
-    #permission_classes =
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
@@ -93,5 +100,3 @@ class RegisterUsers(generics.GenericAPIView):
                 "user": UserSerializer(user, context=self.get_serializer_context()).data,
             }
         )
-
-

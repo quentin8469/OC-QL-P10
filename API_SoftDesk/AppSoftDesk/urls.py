@@ -15,7 +15,8 @@ router.register(r"", ProjectsViewSet, basename="projects")
 router.register(r"^(?P<id>[^/.]+)/users", UserViewSet, basename="users")
 router.register(r"^(?P<id>[^/.]+)/issues", IssuesViewSet, basename="issues")
 router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/comments", CommentsViewSet, basename="comments")
-router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/contributors", ContributorsViewSet, basename="contibutors")
+router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/contributors",
+                ContributorsViewSet, basename="contibutors")
 
 urlpatterns = [
     path('projects/', include(router.urls)),
