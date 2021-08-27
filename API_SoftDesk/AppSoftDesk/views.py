@@ -15,14 +15,16 @@ from .models import Projects, Comments, Contributors, Issues
 
 class ProjectsViewSet(viewsets.ModelViewSet):
     """"""
-    #queryset = Projects.objects.all()
+    queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [ProjectPermission & permissions.IsAuthenticated]
 
-    def get_queryset(self, *args, **kwargs):
-        contributors = Contributors.objects.filter(user_id=self.request.user)
-        info_p = [contributor.projet_id.id for contributor in contributors]
-        return Projects.objects.filter(id__in=info_p)
+    def get_queryset(self):
+        """"""
+        return Projects.objects.filter(author_user_id=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(author_user_id=self.request.user)
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
@@ -34,6 +36,11 @@ class CommentsViewSet(viewsets.ModelViewSet):
         """"""
         id_issue = get_object_or_404(Issues, pk=self.kwargs['id'])
         return Comments.objects.filter(issue_id=id_issue)
+
+    def perform_create(self, serializer):
+        id_issue = get_object_or_404(Issues, pk=self.kwargs['id'])
+        serializer.save(issue_id=id_issue)
+        serializer.save(author_user_id=self.request.user)
 
 
 class ContributorsViewSet(viewsets.ModelViewSet):
@@ -57,6 +64,11 @@ class IssuesViewSet(viewsets.ModelViewSet):
         id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
         return Issues.objects.filter(project_id=id_project)
 
+    def perform_create(self, serializer):
+        id_project = get_object_or_404(Projects, pk=self.kwargs['id'])
+        serializer.save(project_id=id_project)
+        serializer.save(author_user_id=self.request.user)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """"""
@@ -69,9 +81,10 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class RegisterUsers(generics.GenericAPIView):
+    """"""
     serializer_class = RegisterSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
