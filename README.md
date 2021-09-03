@@ -43,9 +43,10 @@ $ pip3 install -r requirements.txt
 * Puis exécuter python manage.py runserver
 * La page sera accessible à l'URL suivante:  http://127.0.0.1:8000/
 
-## 3- Fonctionnement:
+## 3-Fonctionnement:
 
 * Se referer à la documentation POSTMAN pour efectuer les tests.
+* lien: https://documenter.getpostman.com/view/16984358/U16evntT
 
 
 ***
