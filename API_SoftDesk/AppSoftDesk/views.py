@@ -90,6 +90,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class RegisterUsers(generics.GenericAPIView):
     """"""
     serializer_class = RegisterSerializer
+    permission_classes = [permissions.AllowAny]
 
     def post(self, request):
         serializer = self.get_serializer(data=request.data)

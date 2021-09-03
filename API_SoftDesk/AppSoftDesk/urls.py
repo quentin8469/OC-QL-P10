@@ -12,10 +12,10 @@ from .views import (ProjectsViewSet,
 
 router = routers.DefaultRouter()
 router.register(r"", ProjectsViewSet, basename="projects")
-router.register(r"^(?P<id>[^/.]+)/users", UserViewSet, basename="users")
+router.register(r"^(?P<id>[^/.]+)/users", ContributorsViewSet, basename="users")
 router.register(r"^(?P<id>[^/.]+)/issues", IssuesViewSet, basename="issues")
 router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/comments", CommentsViewSet, basename="comments")
-router.register(r"^(?P<id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/contributors",
+router.register(r"^(?P<id>[^/.]+)/contributors",
                 ContributorsViewSet, basename="contibutors")
 
 urlpatterns = [
