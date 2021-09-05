@@ -3,7 +3,7 @@ from rest_framework import viewsets, permissions, generics
 from django.contrib.auth.models import User
 from rest_framework.response import Response
 
-from .permission import ProjectPermission
+from .permission import ProjectPermission, IssuesPermission, CommentsPermission
 from .serializers import (ProjectsSerializer,
                           CommentsSerializer,
                           ContributorsSerializer,
@@ -18,7 +18,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
     """"""
     queryset = Projects.objects.all()
     serializer_class = ProjectsSerializer
-    permission_classes = [ProjectPermission & permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, ProjectPermission]
 
     def get_queryset(self):
         """"""
@@ -31,7 +31,7 @@ class ProjectsViewSet(viewsets.ModelViewSet):
 class CommentsViewSet(viewsets.ModelViewSet):
     """"""
     serializer_class = CommentsSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, CommentsPermission]
 
     def get_queryset(self):
         """"""
@@ -64,7 +64,7 @@ class IssuesViewSet(viewsets.ModelViewSet):
     """"""
 
     serializer_class = IssuesSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, IssuesPermission]
 
     def get_queryset(self):
         """"""
