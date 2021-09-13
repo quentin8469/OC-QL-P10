@@ -41,7 +41,7 @@ $ pip3 install -r requirements.txt
 
 * Se rendre dans le repertoire contenant le fichier python ' manage.py ' ( API_SoftDesk )
 * Puis exécuter python manage.py runserver
-* La page sera accessible à l'URL suivante:  http://127.0.0.1:8000/
+* La page sera accessible à l'URL suivante:  http://127.0.0.1:8000/projects/
 
 ## 3-Fonctionnement:
 
